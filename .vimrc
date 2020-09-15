@@ -69,6 +69,10 @@ set foldlevel=99
 nnoremap <space> za
 let g:SimpylFold_docstring_preview=1
 
+" Copy/Paste overload
+map <C-c> "+y
+map <C-v> "+p
+
 " syntax
 filetype plugin indent on
 syntax on
@@ -120,12 +124,3 @@ augroup END
 " status line display
 set laststatus=2
 
-let java_highlight_functions = 1 
-let java_highlight_all = 1 
-" If you are trying this at runtime, you need to reload the syntax file
-set filetype=java  
-
-" Some more highlights, in addition to those suggested by cmcginty 
-highlight link javaScopeDecl Statement
-highlight link javaType Type 
-highlight link javaDocTags PreProc
