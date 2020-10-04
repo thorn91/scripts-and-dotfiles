@@ -9,10 +9,13 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'neoclide/coc.nvim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'frazrepo/vim-rainbow'
 Plugin 'preservim/nerdcommenter'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'numirias/semshi'
+Plugin 'morhetz/gruvbox'
+" Plugin 'Valloric/YouCompleteMe'
 " Plugin 'davidhalter/jedi-vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
@@ -20,7 +23,6 @@ Plugin 'nvie/vim-flake8'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'chrisbra/Colorizer'
 
 
@@ -41,6 +43,8 @@ filetype plugin indent on    " required
 
 " Map leader key
 let mapleader = ","
+
+"colorscheme gruvbox
 
 " Autocomplete
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -69,15 +73,11 @@ set foldlevel=99
 nnoremap <space> za
 let g:SimpylFold_docstring_preview=1
 
-" Copy/Paste overload
-map <C-c> "+y
-map <C-v> "+p
-
 " syntax
 filetype plugin indent on
 syntax on
 
-" handle tabs and indents 
+" handle tabs and indents
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -87,7 +87,7 @@ autocmd BufWritePre * %s/\s\+$//e
 
 " handle tabs
 set listchars=tab:␉·
-" 
+"
 " line numbers
 set number
 
@@ -123,4 +123,3 @@ augroup END
 
 " status line display
 set laststatus=2
-
