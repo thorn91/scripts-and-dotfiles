@@ -10,11 +10,23 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'neoclide/coc.nvim'
+" Syntax
+Plugin 'sheerun/vim-polyglot'
+
+Plugin 'fatih/vim-go'
 Plugin 'scrooloose/nerdtree'
 Plugin 'frazrepo/vim-rainbow'
+Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'preservim/nerdcommenter'
-Plugin 'numirias/semshi'
+Plugin 'xolox/vim-misc'
+
+" Themes
+Plugin 'xolox/vim-colorscheme-switcher'
 Plugin 'morhetz/gruvbox'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'sainnhe/forest-night'
+Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'rakr/vim-one'
 " Plugin 'Valloric/YouCompleteMe'
 " Plugin 'davidhalter/jedi-vim'
 Plugin 'tmhedberg/SimpylFold'
@@ -24,27 +36,27 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'chrisbra/Colorizer'
-
+Plugin 'itchyny/lightline.vim'
+Plugin 'terryma/vim-multiple-cursors'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
 " Map leader key
 let mapleader = ","
 
-"colorscheme gruvbox
+" Color Scheme & Binding
+let g:one_allow_italics = 1
+map <F1> :colorscheme gruvbox <CR>
+map <F2> :colorscheme jellybeans <CR>
+map <F3> :colorscheme forest-night <CR>
+map <F4> :colorscheme PaperColor <CR>
+map <F5> :colorscheme one <CR>
+map <F6> :set background=dark <CR>
+map <F7> :set background=light <CR>
 
 " Autocomplete
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -54,6 +66,11 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " Python Highlighting
 let python_highlight_all=1
+
+" Lightline
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
 
 " Nerdtree
 map <C-o> :NERDTreeToggle<CR>
@@ -81,12 +98,18 @@ syntax on
 set tabstop=4
 set shiftwidth=4
 set expandtab
+let g:indent_guides_enable_on_vim_startup = 1
+
+" Allow showing and hiding tab characters
+set invlist
+set nolist
+nmap <leader>l :set invlist<cr>
 
 " autotrim whitespace on save
 autocmd BufWritePre * %s/\s\+$//e
 
 " handle tabs
-set listchars=tab:␉·
+"set listchars=tab:␉·
 "
 " line numbers
 set number
@@ -109,9 +132,15 @@ set showmatch
 "inoremap [ []<Esc>:let leavechar="]"<CR>i
 "inoremap { {}<Esc>:let leavechar="}"<CR>i
 inoremap {<CR> {<CR>}<Esc>O<BS><Tab>
-"
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+
+
 " highlight bad whistespace
-set list listchars=trail:.,extends:>
+" "set list listchars=trail:.,extends:>
 
 " folding by indent and keep folds open when file open
 set foldmethod=indent
@@ -123,3 +152,4 @@ augroup END
 
 " status line display
 set laststatus=2
+
