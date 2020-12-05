@@ -1,4 +1,4 @@
-set nocompatible              " be iMproved, required
+set nocompatible
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
@@ -9,26 +9,28 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'neoclide/coc.nvim'
+" Plugin 'neoclide/coc.nvim'
 " Syntax
 Plugin 'sheerun/vim-polyglot'
 
 Plugin 'fatih/vim-go'
 Plugin 'scrooloose/nerdtree'
 Plugin 'frazrepo/vim-rainbow'
-Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'Yggdroot/indentLine'
 Plugin 'preservim/nerdcommenter'
 Plugin 'xolox/vim-misc'
 
 " Themes
 Plugin 'xolox/vim-colorscheme-switcher'
-Plugin 'morhetz/gruvbox'
+Plugin 'gruvbox-community/gruvbox'
 Plugin 'nanotech/jellybeans.vim'
-Plugin 'sainnhe/forest-night'
+Plugin 'arcticicestudio/nord-vim'
+Plugin 'ayu-theme/ayu-vim'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'rakr/vim-one'
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'davidhalter/jedi-vim'
+Plugin 'fcpg/vim-fahrenheit'
+
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
@@ -50,13 +52,17 @@ let mapleader = ","
 
 " Color Scheme & Binding
 let g:one_allow_italics = 1
+set termguicolors
+let ayucolor = "mirage"
 map <F1> :colorscheme gruvbox <CR>
 map <F2> :colorscheme jellybeans <CR>
-map <F3> :colorscheme forest-night <CR>
+map <F3> :colorscheme nord <CR>
 map <F4> :colorscheme PaperColor <CR>
 map <F5> :colorscheme one <CR>
-map <F6> :set background=dark <CR>
-map <F7> :set background=light <CR>
+map <F6> :colorscheme ayu <CR>
+map <F7> :colorscheme farenheit <CR>
+map <F9> :set background=dark <CR>
+map <F10> :set background=light <CR>
 
 " Autocomplete
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -153,3 +159,9 @@ augroup END
 " status line display
 set laststatus=2
 
+" DEBUG SECTION "
+" GO
+let g:go_debug_windows = {
+    \ 'vars':       'rightbelow 60vnew',
+    \ 'stack':      'rightbelow 10new',
+\ }
