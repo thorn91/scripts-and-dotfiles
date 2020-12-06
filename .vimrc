@@ -52,18 +52,21 @@ filetype plugin indent on    " required
 let mapleader = ","
 
 " Color Scheme & Binding
+let g:gruvbox_italic=1
 let g:one_allow_italics = 1
 set termguicolors
 let ayucolor = "mirage"
+colorscheme nord
 map <F1> :colorscheme gruvbox <CR>
-map <F2> :colorscheme jellybeans <CR>
-map <F3> :colorscheme nord <CR>
+map <F2> :colorscheme nord<CR>
+map <F3> :colorscheme bluewery <CR>
 map <F4> :colorscheme PaperColor <CR>
 map <F5> :colorscheme one <CR>
 map <F6> :colorscheme ayu <CR>
-map <F7> :colorscheme farenheit <CR>
-map <F9> :set background=dark <CR>
-map <F10> :set background=light <CR>
+map <F7> :colorscheme iceberg <CR>
+map <F9> :colorscheme synthwave84 <CR>
+map <leader>- :set background=dark <CR>
+map <leader>= :set background=light <CR>
 
 " Autocomplete
 let g:ycm_autoclose_preview_window_after_completion=1
