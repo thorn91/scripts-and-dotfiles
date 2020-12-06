@@ -23,12 +23,13 @@ Plugin 'xolox/vim-misc'
 " Themes
 Plugin 'xolox/vim-colorscheme-switcher'
 Plugin 'gruvbox-community/gruvbox'
-Plugin 'nanotech/jellybeans.vim'
 Plugin 'arcticicestudio/nord-vim'
 Plugin 'ayu-theme/ayu-vim'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'rakr/vim-one'
-Plugin 'fcpg/vim-fahrenheit'
+Plugin 'relastle/bluewery.vim'
+Plugin 'cocopon/iceberg.vim'
+Plugin 'artanikin/vim-synthwave84'
 
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'tmhedberg/SimpylFold'
@@ -137,12 +138,12 @@ set showmatch
 "inoremap ( ()<Esc>:let leavechar=")"<CR>i
 "inoremap [ []<Esc>:let leavechar="]"<CR>i
 "inoremap { {}<Esc>:let leavechar="}"<CR>i
-inoremap {<CR> {<CR>}<Esc>O<BS><Tab>
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
+"inoremap {<CR> {<CR>}<Esc>O<BS><Tab>
+"inoremap " ""<left>
+"inoremap ' ''<left>
+"inoremap ( ()<left>
+"inoremap [ []<left>
+"inoremap { {}<left>
 
 
 " highlight bad whistespace
@@ -165,7 +166,6 @@ let g:go_debug_windows = {
     \ 'vars':       'rightbelow 60vnew',
     \ 'stack':      'rightbelow 10new',
 \ }
-
 
 " -------------------------------------------------------------------------------------------------
 " coc.nvim default settings
