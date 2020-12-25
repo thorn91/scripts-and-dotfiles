@@ -9,16 +9,23 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-" Plugin 'neoclide/coc.nvim'
+Plugin 'neoclide/coc.nvim'
 " Syntax
 Plugin 'sheerun/vim-polyglot'
 
+" Language
 Plugin 'fatih/vim-go'
+Plugin 'puremourning/vimspector'
+
+Plugin 'szw/vim-maximizer'
 Plugin 'scrooloose/nerdtree'
 Plugin 'frazrepo/vim-rainbow'
 Plugin 'Yggdroot/indentLine'
 Plugin 'preservim/nerdcommenter'
 Plugin 'xolox/vim-misc'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 
 " Themes
 Plugin 'xolox/vim-colorscheme-switcher'
@@ -27,11 +34,13 @@ Plugin 'arcticicestudio/nord-vim'
 Plugin 'ayu-theme/ayu-vim'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'rakr/vim-one'
-Plugin 'relastle/bluewery.vim'
 Plugin 'cocopon/iceberg.vim'
 Plugin 'artanikin/vim-synthwave84'
+Plugin 'pgavlin/pulumi.vim'
+Plugin 'megantiu/true.vim'
+Plugin 'raphamorim/lucario'
 
-Plugin 'Valloric/YouCompleteMe'
+""Plugin 'Valloric/YouCompleteMe'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
@@ -39,8 +48,9 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'chrisbra/Colorizer'
-Plugin 'itchyny/lightline.vim'
-Plugin 'terryma/vim-multiple-cursors'
+"Plugin 'itchyny/lightline.vim'
+Plugin 'vim-airline/vim-airline'
+""Plugin 'terryma/vim-multiple-cursors'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -48,23 +58,32 @@ filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 
-" Map leader key
-let mapleader = ","
+" Map leader key and escape key
+inoremap jj <Esc>
+let mapleader = "\<Space>"
+"let mapleader = ","
+"nnoremap <silent> <Leader><Space> :Files<CR>
+
+" au filetype go inoremap <buffer> . .<C-x><C-o>
 
 " Color Scheme & Binding
+"colorscheme nord
 let g:gruvbox_italic=1
 let g:one_allow_italics = 1
 set termguicolors
 let ayucolor = "mirage"
-colorscheme nord
-map <F1> :colorscheme gruvbox <CR>
-map <F2> :colorscheme nord<CR>
-map <F3> :colorscheme bluewery <CR>
-map <F4> :colorscheme PaperColor <CR>
-map <F5> :colorscheme one <CR>
-map <F6> :colorscheme ayu <CR>
-map <F7> :colorscheme iceberg <CR>
-map <F9> :colorscheme synthwave84 <CR>
+let g:true_airline = 1
+let g:airline_theme='true'
+map <leader><F1> :colorscheme gruvbox <CR>
+map <leader><F2> :colorscheme nord<CR>
+map <leader><F3> :colorscheme pulumi <CR>
+map <leader><F4> :colorscheme PaperColor <CR>
+map <leader><F5> :colorscheme lucario <CR>
+map <leader><F6> :colorscheme ayu <CR>
+map <leader><F7> :colorscheme iceberg <CR>
+"map <leader><F9> :colorscheme synthwave84 <CR>
+map <leader><F9> :colorscheme true <CR>
+
 map <leader>- :set background=dark <CR>
 map <leader>= :set background=light <CR>
 
@@ -74,8 +93,13 @@ set completeopt-=preview
 let g:ycm_add_preview_to_completeopt=0
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-" Python Highlighting
+" Python
 let python_highlight_all=1
+autocmd FileType python map <buffer> <leader><F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+autocmd FileType python imap <buffer> <leader><F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+
+" Vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
 
 " Lightline
 let g:lightline = {
@@ -83,7 +107,7 @@ let g:lightline = {
       \ }
 
 " Nerdtree
-map <C-o> :NERDTreeToggle<CR>
+map <leader>o :NERDTreeToggle<CR>
 
 " Rainbow Brackets
 let g:rainbow_active = 1
@@ -128,7 +152,7 @@ set number
 set showcmd
 
 " highlight current line
-set cursorline
+" set cursorline
 
 " filetype detection and loading files based on it
 " files go in ex: ~/.vim/indent/python.vim
@@ -142,8 +166,6 @@ set showmatch
 "inoremap [ []<Esc>:let leavechar="]"<CR>i
 "inoremap { {}<Esc>:let leavechar="}"<CR>i
 "inoremap {<CR> {<CR>}<Esc>O<BS><Tab>
-"inoremap " ""<left>
-"inoremap ' ''<left>
 "inoremap ( ()<left>
 "inoremap [ []<left>
 "inoremap { {}<left>
@@ -169,6 +191,13 @@ let g:go_debug_windows = {
     \ 'vars':       'rightbelow 60vnew',
     \ 'stack':      'rightbelow 10new',
 \ }
+
+nnoremap <C-p> :Gfiles<CR>
+
+
+
+
+
 
 " -------------------------------------------------------------------------------------------------
 " coc.nvim default settings
@@ -236,6 +265,8 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+"=============== End COC ==================================="
 
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
