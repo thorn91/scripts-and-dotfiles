@@ -4,19 +4,17 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'neoclide/coc.nvim'
-" Syntax
-Plugin 'sheerun/vim-polyglot'
 
 " Language
+Plugin 'neoclide/coc.nvim'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'fatih/vim-go'
 Plugin 'puremourning/vimspector'
 
+" Misc QOL
+Plugin 'chudyu/vim-taglist'
+Plugin 'mhinz/vim-startify'
 Plugin 'szw/vim-maximizer'
 Plugin 'scrooloose/nerdtree'
 Plugin 'frazrepo/vim-rainbow'
@@ -60,8 +58,7 @@ filetype plugin indent on    " required
 
 " Map leader key and escape key
 inoremap jj <Esc>
-let mapleader = "\<Space>"
-"let mapleader = ","
+let g:mapleader = "\<Space>"
 "nnoremap <silent> <Leader><Space> :Files<CR>
 
 " au filetype go inoremap <buffer> . .<C-x><C-o>
@@ -70,7 +67,7 @@ let mapleader = "\<Space>"
 "colorscheme nord
 let g:gruvbox_italic=1
 let g:one_allow_italics = 1
-set termguicolors
+"set termguicolors
 let ayucolor = "mirage"
 let g:true_airline = 1
 let g:airline_theme='true'
@@ -87,7 +84,7 @@ map <leader><F9> :colorscheme true <CR>
 map <leader>- :set background=dark <CR>
 map <leader>= :set background=light <CR>
 
-" Autocomplete
+" Nerdtree
 let g:ycm_autoclose_preview_window_after_completion=1
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt=0
@@ -95,19 +92,36 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " Python
 let python_highlight_all=1
+let g:python_highlight_space_errors=0 " Shows the whitespace at the start of the line and sucks
 autocmd FileType python map <buffer> <leader><F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <leader><F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 
-" Vimspector
 let g:vimspector_enable_mappings = 'HUMAN'
+nmap <leader>dd :call vimspector#Launch()<CR>
+nmap <leader>dx :VimspectorReset<CR>
+nmap <leader>de :VimspectorEval
+nmap <leader>dw :VimspectorWatch
+nmap <leader>do :VimspectorShowOutput
+
+" Vim Taglist
+nnoremap <leader>tl :TlistToggle<CR>
+let Tlist_Use_Right_Window = 1
 
 " Lightline
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
 
+" Fzf
+nnoremap <silent> <Leader>f :Rg<CR>
+nnoremap <silent> <C-f> :Files<CR>
+
 " Nerdtree
-map <leader>o :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeFocus<CR>
+" Exit Vim if NERDTree is the only window left.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+    \ quit | endif
+
 
 " Rainbow Brackets
 let g:rainbow_active = 1
@@ -161,6 +175,10 @@ filetype indent on
 " highlight matching [{()}]
 set showmatch
 
+" Highlight characters over the character line limit
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%101v', 100)
+
 " Automatic Brackets
 "inoremap ( ()<Esc>:let leavechar=")"<CR>i
 "inoremap [ []<Esc>:let leavechar="]"<CR>i
@@ -194,9 +212,26 @@ let g:go_debug_windows = {
 
 nnoremap <C-p> :Gfiles<CR>
 
-
-
-
+" Vim Session
+let g:startify_session_dir = '~/.config/nvim/session'
+let g:startify_custom_header = [
+		\ ' _____               _      __     ___',
+		\ '|_   _|__  _ __ ___ ( )___  \ \   / (_)_ __ ___',
+		\ '  | |/ _ \| |_ ` _ \|// __|  \ \ / /| | |_ ` _ \',
+		\ '  | | (_) | | | | | | \__ \   \ V / | | | | | | |',
+		\ '  |_|\___/|_| |_| |_| |___/    \_/  |_|_| |_| |_|',
+        \]
+let g:startify_lists = [
+          \ { 'type': 'files',     'header': ['   Files']             },
+          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()]  },
+          \ { 'type': 'sessions',  'header': ['   Sessions']        },
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']       },
+          \ ]
+let g:startify_bookmarks = [
+            \ { 'v': '~/.vimrc'  },
+            \ { 'z': '~/.zshrc'  },
+            \ '/mnt/c/Users/hortw/Dev',
+            \ ]
 
 
 " -------------------------------------------------------------------------------------------------
@@ -271,3 +306,4 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
+

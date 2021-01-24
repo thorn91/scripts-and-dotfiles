@@ -1,4 +1,4 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+#Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/mactom/.oh-my-zsh"
+export ZSH="/home/thomas/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -40,7 +40,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -75,14 +75,20 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git
-         brew
-         pip
-         pyenv
-            )
-
+plugins=(
+	git
+	github
+	heroku
+	man
+	python
+	pyenv
+	node
+	)
 
 source $ZSH/oh-my-zsh.sh
+
+# Vim Config
+bindkey -v
 
 # User configuration
 
@@ -101,53 +107,39 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-alias sapelo='ssh twh58439@sapelo2.gacrc.uga.edu'
-alias xfer='ssh twh58439@xfer.gacrc.uga.edu'
-alias nike='ssh horn@nike.cs.uga.edu'
-alias lab='ssh tsailab1@172.19.32.138'
-
-# Mac specific
-alias vim='mvim -v'
-
-# General
-alias ls='ls -a'
-alias l='ls -hal'
-
-# Auto init pyenv
-eval "$(pyenv init -)"
+# Set personal aliases, overriding those provided by oh-my-zsh libs
+alias c="clear"
+alias vim="nvim"
+alias user="cd /mnt/c/Users/hortw"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# Pyenv
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Pywal Color Update
-function pywal {
-    wal --backend colorz -n  -i $1
-    echo "Created color set based on image $1"
-
-    osascript -e "tell application \"System Events\" to tell every desktop to set picture to \"$(cat "$HOME/.cache/wal/wal")\""
-    echo "Changed background"
-
-    colors="/Users/mactom/.cache/wal/colors.css"
-    firefoxProfile="/Users/mactom/Library/ApplicationSupport/Firefox/Profiles/etvts3rv.dev-edition-default/chrome/"
-    echo "Restart Firefox to update theme."
-    cp $colors $firefoxProfile
-}
-
-# Import colorscheme from 'wal' asynchronously
-# &   # Run the process in the background.
-# ( ) # Hide shell job control messages.
-(cat ~/.cache/wal/sequences &)
-
-# Alternative (blocks terminal for 0-3ms)
-cat ~/.cache/wal/sequences
-
-# To add support for TTYs this line can be optionally added.
-source ~/.cache/wal/colors-tty.sh
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# FZF Size
+if type rg &> /dev/null; then
+      export FZF_DEFAULT_COMMAND='rg --files'
+        export FZF_DEFAULT_OPTS='-m --height 50% --border'
+fi
+
+# Go!
+export PATH=$PATH:/usr/local/go/bin
+eval "$(pyenv virtualenv-init -)"
+
+# Python!
+export PYTHON_3="/usr/bin/python3"
+export PATH="$PYTHON_3:$PATH"
