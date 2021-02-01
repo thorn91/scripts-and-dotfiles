@@ -215,11 +215,11 @@ nnoremap <C-p> :Gfiles<CR>
 " Vim Session
 let g:startify_session_dir = '~/.config/nvim/session'
 let g:startify_custom_header = [
-		\ ' _____               _      __     ___',
-		\ '|_   _|__  _ __ ___ ( )___  \ \   / (_)_ __ ___',
-		\ '  | |/ _ \| |_ ` _ \|// __|  \ \ / /| | |_ ` _ \',
-		\ '  | | (_) | | | | | | \__ \   \ V / | | | | | | |',
-		\ '  |_|\___/|_| |_| |_| |___/    \_/  |_|_| |_| |_|',
+                \ ' _____               _      __     ___',
+                \ '|_   _|__  _ __ ___ ( )___  \ \   / (_)_ __ ___',
+                \ '  | |/ _ \| |_ ` _ \|// __|  \ \ / /| | |_ ` _ \',
+                \ '  | | (_) | | | | | | \__ \   \ V / | | | | | | |',
+                \ '  |_|\___/|_| |_| |_| |___/    \_/  |_|_| |_| |_|',
         \]
 let g:startify_lists = [
           \ { 'type': 'files',     'header': ['   Files']             },
@@ -306,4 +306,3 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
-
