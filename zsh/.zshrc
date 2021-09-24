@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/mactom/.oh-my-zsh"
+export ZSH="/Users/thomashorn/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -124,56 +124,18 @@ alias l='ls -hal'
 bindkey -v
 
 # Auto init pyenv
-eval "$(pyenv init -)"
+#eval "$(pyenv init -)"
+export PATH="$PYENV_ROOT/shims:$PATH"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Pywal Color Update
-function pywal {
-    wal --backend colorz -n  -i $1
-    echo "Created color set based on image $1"
 
-    osascript -e "tell application \"System Events\" to tell every desktop to set picture to \"$(cat "$HOME/.cache/wal/wal")\""
-    echo "Changed background"
-
-    colors="/Users/mactom/.cache/wal/colors.css"
-    firefoxProfile="/Users/mactom/Library/ApplicationSupport/Firefox/Profiles/etvts3rv.dev-edition-default/chrome/"
-    echo "Restart Firefox to update theme."
-    cp $colors $firefoxProfile
-}
-
-# Import colorscheme from 'wal' asynchronously
-# &   # Run the process in the background.
-# ( ) # Hide shell job control messages.
-#(cat ~/.cache/wal/sequences &)
-
-# Alternative (blocks terminal for 0-3ms)
-#cat ~/.cache/wal/sequences
-
-# To add support for TTYs this line can be optionally added.
-#source ~/.cache/wal/colors-tty.sh
-
-# Doom Emacs
-export PATH="/Applications/MacPorts/Emacs.app/Contents/MacOS:$PATH"
 
 # nvm
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
